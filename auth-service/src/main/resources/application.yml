@@ -1,0 +1,18 @@
+#Keycloak & datasource config
+server:
+  port: 8081
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: auth-service
+            client-secret: V9idy4j5pdSiPCyZcRDqAUk1zFfVPlkl
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope: openid, profile, email
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/dataflux
