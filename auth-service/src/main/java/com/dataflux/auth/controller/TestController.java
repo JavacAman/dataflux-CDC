@@ -11,6 +11,14 @@ import java.util.Map;
 @RestController
 public class TestController {
 
+    @GetMapping("/")
+    public String home(@AuthenticationPrincipal OidcUser user) {
+        if (user == null) {
+            return "Hello Guest! Please login via Keycloak.";
+        }
+        return "Welcome " + user.getClaim("email");
+    }
+
     @GetMapping("/public/health")
     public String health() {
         return "Auth service is UP";
@@ -19,14 +27,6 @@ public class TestController {
     @GetMapping("/me")
     public Map<String, Object> me(@AuthenticationPrincipal OidcUser user) {
         return user.getClaims();
-    }
-
-    @GetMapping("/")
-    public String home(@AuthenticationPrincipal OidcUser user) {
-        if (user == null) {
-            return "Hello Guest! Please login via Keycloak.";
-        }
-        return "Welcome " + user.getClaim("email");
     }
 }
 
